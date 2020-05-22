@@ -3,7 +3,7 @@
 try {
     
     // Control debug mode
-    define('DEBUG', true);
+    define('DEBUG', false);
         
     // Set the root directory
     define('ROOT_DIR', '/share/Media');
