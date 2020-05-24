@@ -16,7 +16,7 @@ Setting the web root to `http-thingie/public` and leaving the `public/.htaccess`
 
 ## How to configure nginx
 
-Use the included [nginx.conf](nginx.conf?raw=true) file as a starting point.
+Use the included [nginx.conf](nginx.conf) file as a starting point.
 
 ## Permissions
 
