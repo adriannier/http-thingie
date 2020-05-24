@@ -6,7 +6,7 @@ Generates listings of a directory and its sub-directories outside the public web
 
 ## How it works
 
-Loading the `public/index.php` script through a web server will create a listing of the directory specified by the constant `ROOT_DIR` in `thingie.php`. If a symbol link exists at `public/download` pointing to the same directory then the file will not be served through PHP but directly by the web server. This is especially beneficial for files larger than 2 GB and 32-bit PHP installations.
+Loading the `public/index.php` script through a web server will create a listing of the directory specified by the constant `ROOT_DIR` in `thingie.php`. If a symbolic link exists at `public/download` pointing to the same directory then the file will not be served through PHP but directly by the web server. This is especially beneficial for files larger than 2 GB and 32-bit PHP installations.
 
 The web server should be configured so that all non-existing files are re-routed to `public/index.php`.
 
