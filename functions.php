@@ -267,7 +267,7 @@ function composeHTMLListing($list, $requestedPath, $resourcePath) {
                 $number = $file->date->format('Y-m-d');
                 $title = $file->displayedNameWithoutPrefix;
     
-            } else if ($file->number !== false) {
+            } else if (($file->suffix == 'mp3' || $file->suffix == 'm4a') && $file->number !== false) {
                 
                 $number = $file->number;
                 $title = $file->displayedNameWithoutPrefix;
@@ -286,18 +286,18 @@ function composeHTMLListing($list, $requestedPath, $resourcePath) {
             }
             
 
-            $youtubeLink = '';
+            $youTubeLink = '';
 /*
             if ($list->suffixedWithVideoId && $file->videoId !== false) {
                 // Add YouTube link
-                $youtubeLink = composeHTMLLink("https://www.youtube.com/watch?v={$file->videoId}", "Y", 'youtube', "https://www.youtube.com/watch?v={$file->videoId}", "_blank");
+                $youTubeLink = composeHTMLLink("https://www.youtube.com/watch?v={$file->videoId}", "Y", 'youtube', "https://www.youtube.com/watch?v={$file->videoId}", "_blank");
             }
 */
             
             $script = "window.location.href = '{$file->url}'";
             $link = composeHTMLLink($file->url, $title, 'directory-item'.($file->isDirectory ? ' directory' : ''), $tooltip);
             
-            $listing .= composeHTMLListButton($itemNumber, ($file->isDirectory ? 'directory' : 'file'), $script, $icon, $number, $link.$youtubeLink);
+            $listing .= composeHTMLListButton($itemNumber, ($file->isDirectory ? 'directory' : 'file'), $script, $icon, $number, $link.$youTubeLink);
                    
             $itemNumber++;
             
@@ -570,11 +570,14 @@ function listDirectory($directoryPath) {
                     
                     // Try to remove directory name from start of file
                     
-                    if (startsWith($displayedName, $dirName.' - ')) {
-                        $displayedName = trim(substr($displayedName, strlen($dirName.' - ')));
-                    } else if (startsWith($displayedName, $dirName)) {
-                        $displayedName = trim(substr($displayedName, strlen($dirName)));
+                    if ($displayedName != $dirName) {
+                        if (startsWith($displayedName, $dirName.' - ')) {
+                            $displayedName = trim(substr($displayedName, strlen($dirName.' - ')));
+                        } else if (startsWith($displayedName, $dirName)) {
+                            $displayedName = trim(substr($displayedName, strlen($dirName)));
+                        } 
                     }
+                   
                     
                     // Replace single quotes with apostrophe
                     $displayedName = str_replace("'", "’", $displayedName);
