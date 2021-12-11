@@ -531,11 +531,24 @@ function listDirectory($directoryPath) {
                         $onlyDirectories = false;
                     }
 
-                    // Generate displayed from file name without suffix
-                    $displayedName = trim(pathinfo($item, PATHINFO_FILENAME));
-
-                    // Get the suffix
-                    $suffix = pathinfo($item, PATHINFO_EXTENSION);
+                    if ($isDirectory) {
+                        
+                        $displayedName = trim(pathinfo($item, PATHINFO_BASENAME));
+                        $suffix = '';
+                            
+                    } else {
+                        
+                        // Generate displayed from file name without suffix
+                        $displayedName = trim(pathinfo($item, PATHINFO_FILENAME));
+    
+                        // Get the suffix
+                        $suffix = pathinfo($item, PATHINFO_EXTENSION);
+                        
+                        if (stringContains($suffix, ' ')) {
+                            $displayedName = $displayedName.'.'.$suffix;
+                            $suffix = '';
+                        }
+                    }
                     
                     // youtube-dl downloads include the YouTube video identifier at the end
                     // The best we can do is analyze the string that comes after the last dash
@@ -1048,6 +1061,12 @@ function logTimestamp() {
 }
 
 //! UTILITIES
+
+function stringContains($haystack, $needle) {
+    
+    return !(strpos($haystack, $needle) === false);
+    
+}
 
 function startsWith($haystack, $needle) {
     
