@@ -828,6 +828,9 @@ function listDirectory($directoryPath) {
                     // Replace single quotes with apostrophe
                     $displayedName = str_replace("'", "’", $displayedName);
                     
+                    // Replace underscores
+                    $displayedName = str_replace('_', ' ', $displayedName);
+                    
                     // Initialize prefix variables
                     $number = false;
                     $date = false;
@@ -893,9 +896,12 @@ function listDirectory($directoryPath) {
                             
                             // Try to remove more extraneous characters
                             if (startsWith($displayedNameWithoutPrefix, '- ')) {
-                                $displayedNameWithoutPrefix = trim(substr($displayedNameWithoutPrefix, 1));                                
-                            }    
-                        }    
+                                $displayedNameWithoutPrefix = trim(substr($displayedNameWithoutPrefix, 1));
+                            }
+                        }
+                        
+                        // Replace underscores
+                        $displayedNameWithoutPrefix = str_replace('_', ' ', $displayedNameWithoutPrefix);
                                         
                     }
                     
